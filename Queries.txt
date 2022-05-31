@@ -1,0 +1,41 @@
+/* Query 1 */
+-- who are the most 10 artists?
+
+SELECT Artist.Name , count(Album.ArtistId) "Albums Number"
+FROM Album
+
+JOIN Artist on Album.ArtistId= Artist.ArtistId
+GROUP by Artist.Name
+ORDER by "Albums Number" DESC
+LIMIT 10;
+
+/* Query 2 */
+-- who are the top buying customer for music ?
+
+SELECT  (Customer.FirstName ||' '|| Customer.LastName)  as ClientName ,
+ sum (Invoice.total) as overall
+FROM Invoice
+INNER JOIN Customer on Invoice.CustomerId = Customer.CustomerId
+GROUP by ClientName 
+ORDER by overall DESC
+LIMIT 10;
+
+/* Query 3 */
+-- who is the top 5 mediatype format used?
+
+SELECT MediaType.Name , count(Track.MediaTypeId) as Sum
+FROM Track
+JOIN MediaType on Track.MediaTypeId = MediaType.MediaTypeId 
+GROUP by MediaType.Name
+ORDER by Sum DESC 
+LIMIT 5 ;
+
+/* Query 4 */
+
+-- who is the best supportive Employee
+SELECT ( Employee.FirstName ||' '|| Employee.LastName) as clientName ,
+ count(Customer.CustomerId) as " customer Numbers"
+FROM Employee
+Join Customer on Employee.EmployeeId=Customer.SupportRepId
+GROUP by clientName
+LIMIT 10;
